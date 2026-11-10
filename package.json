@@ -18,9 +18,11 @@
     "e2e:ui": "playwright test --ui",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "audit": "pnpm audit --audit-level high"
+    "audit": "pnpm audit --audit-level high",
+    "api:generate": "openapi-ts"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.107.1",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "next": "16.4.6",
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
+    "@hey-api/openapi-ts": "0.99.0",
     "@playwright/test": "1.65.0",
     "@tailwindcss/postcss": "4.3.5",
     "@testing-library/dom": "10.4.2",

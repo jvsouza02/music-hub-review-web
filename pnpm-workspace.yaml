@@ -16,3 +16,4 @@ allowBuilds:
 
 overrides:
   "@typescript-eslint/typescript-estree>minimatch": "11.0.1"
+  "@hey-api/json-schema-ref-parser>js-yaml": "4.3.2"
