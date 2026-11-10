@@ -1,0 +1,18 @@
+packages:
+  - '.'
+
+saveExact: true
+
+# Delay newly published package versions for one hour before resolving them.
+# This is a deliberate compromise to allow timely security updates while adding
+# a short supply-chain observation window. Consider raising this to 1440 (24h)
+# after the dependency graph is stabilized.
+minimumReleaseAge: 60
+
+# Dependency install scripts are blocked unless explicitly reviewed and allowed.
+strictDepBuilds: true
+allowBuilds:
+  esbuild: true
+
+overrides:
+  "@typescript-eslint/typescript-estree>minimatch": "11.0.1"
