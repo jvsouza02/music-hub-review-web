@@ -1,16 +1,16 @@
-import "server-only";
+import 'server-only';
 
 import {
   getArtistById,
   getArtistByMbid,
   listArtistAlbums,
   listArtists,
-} from "@/lib/api/generated/sdk.gen";
+} from '@/lib/api/generated/sdk.gen';
 
-import type { PaginationParams } from "@/lib/api/pagination";
+import type { PaginationParams } from '@/lib/api/pagination';
 
-import { normalizePagination } from "@/lib/api/pagination";
-import { unwrapApiResult } from "@/lib/api/unwrap";
+import { normalizePagination } from '@/lib/api/pagination';
+import { unwrapApiResult } from '@/lib/api/unwrap';
 
 export async function fetchArtistById(artistId: string) {
   const result = await getArtistById({

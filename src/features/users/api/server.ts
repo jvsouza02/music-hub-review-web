@@ -1,4 +1,4 @@
-import "server-only";
+import 'server-only';
 
 import {
   createUser,
@@ -7,19 +7,13 @@ import {
   getPublicUser,
   listUsers,
   updateUser,
-} from "@/lib/api/generated/sdk.gen";
+} from '@/lib/api/generated/sdk.gen';
 
-import type {
-  UserCreateSchema,
-  UserUpdateSchema,
-} from "@/lib/api/generated/types.gen";
+import type { UserCreateSchema, UserUpdateSchema } from '@/lib/api/generated/types.gen';
 
-import {
-  getAuthorizationHeaders,
-  type AuthenticatedApiContext,
-} from "@/lib/api/request-context";
+import { getAuthorizationHeaders, type AuthenticatedApiContext } from '@/lib/api/request-context';
 
-import { unwrapApiResult, unwrapApiVoid } from "@/lib/api/unwrap";
+import { unwrapApiResult, unwrapApiVoid } from '@/lib/api/unwrap';
 
 export async function fetchUsers(context: AuthenticatedApiContext) {
   const result = await listUsers({
@@ -29,9 +23,7 @@ export async function fetchUsers(context: AuthenticatedApiContext) {
   return unwrapApiResult(result);
 }
 
-export async function fetchCurrentUser(
-  context: AuthenticatedApiContext,
-) {
+export async function fetchCurrentUser(context: AuthenticatedApiContext) {
   const result = await getCurrentUser({
     headers: getAuthorizationHeaders(context),
   });
@@ -73,10 +65,7 @@ export async function updateUserProfile(
   return unwrapApiResult(result);
 }
 
-export async function deleteUserAccount(
-  userId: string,
-  context: AuthenticatedApiContext,
-) {
+export async function deleteUserAccount(userId: string, context: AuthenticatedApiContext) {
   const result = await deleteUser({
     path: {
       user_id: userId,

@@ -15,9 +15,9 @@ export default defineConfig([
     },
   },
   {
-    files: ["src/lib/api/generated/**/*.ts"],
+    files: ['src/lib/api/generated/**/*.ts'],
     rules: {
-      "@typescript-eslint/no-explicit-any": "off",
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   globalIgnores([

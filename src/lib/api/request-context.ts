@@ -1,12 +1,10 @@
-import "server-only";
+import 'server-only';
 
 export type AuthenticatedApiContext = {
   accessToken: string;
 };
 
-export function getAuthorizationHeaders(
-  context: AuthenticatedApiContext,
-) {
+export function getAuthorizationHeaders(context: AuthenticatedApiContext) {
   return {
     Authorization: `Bearer ${context.accessToken}`,
   };

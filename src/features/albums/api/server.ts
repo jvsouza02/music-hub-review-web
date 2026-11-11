@@ -1,16 +1,16 @@
-import "server-only";
+import 'server-only';
 
 import {
   getAlbumById,
   getAlbumByMbid,
   listAlbums,
   listAlbumTracks,
-} from "@/lib/api/generated/sdk.gen";
+} from '@/lib/api/generated/sdk.gen';
 
-import type { PaginationParams } from "@/lib/api/pagination";
+import type { PaginationParams } from '@/lib/api/pagination';
 
-import { normalizePagination } from "@/lib/api/pagination";
-import { unwrapApiResult } from "@/lib/api/unwrap";
+import { normalizePagination } from '@/lib/api/pagination';
+import { unwrapApiResult } from '@/lib/api/unwrap';
 
 export async function fetchAlbumById(albumId: string) {
   const result = await getAlbumById({

@@ -1,25 +1,25 @@
-import { defineConfig } from "@hey-api/openapi-ts";
+import { defineConfig } from '@hey-api/openapi-ts';
 
 export default defineConfig({
-  input: "./openapi/openapi.json",
+  input: './openapi/openapi.json',
   output: {
-    path: "./src/lib/api/generated",
-    postProcess: ["prettier"],
+    path: './src/lib/api/generated',
+    postProcess: ['prettier'],
   },
   plugins: [
     {
-      name: "@hey-api/client-fetch",
-      runtimeConfigPath: "./src/lib/api/generated-runtime.ts",
+      name: '@hey-api/client-fetch',
+      runtimeConfigPath: './src/lib/api/generated-runtime.ts',
     },
-    "@hey-api/typescript",
+    '@hey-api/typescript',
     {
-      name: "@hey-api/sdk",
+      name: '@hey-api/sdk',
       auth: true,
       operations: {
-        strategy: "flat",
+        strategy: 'flat',
       },
-      paramsStructure: "grouped",
-      responseStyle: "fields",
+      paramsStructure: 'grouped',
+      responseStyle: 'fields',
     },
   ],
 });

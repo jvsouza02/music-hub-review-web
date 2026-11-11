@@ -1,4 +1,4 @@
-import { ApiError, createApiError } from "./api-error";
+import { ApiError, createApiError } from './api-error';
 
 type SdkResult<T> = {
   data?: T;
@@ -18,8 +18,8 @@ export function unwrapApiResult<T>(result: SdkResult<T>): T {
   if (result.data === undefined) {
     throw new ApiError(
       result.response?.status ?? 502,
-      "EMPTY_API_RESPONSE",
-      "O servidor retornou uma resposta sem os dados esperados.",
+      'EMPTY_API_RESPONSE',
+      'O servidor retornou uma resposta sem os dados esperados.',
     );
   }
 
@@ -30,9 +30,6 @@ export function unwrapApiVoid(result: SdkResult<unknown>): void {
   ensureSuccessfulResponse(result);
 
   if (!result.response) {
-    throw createApiError(
-      undefined,
-      "No HTTP response was received from the API.",
-    );
+    throw createApiError(undefined, 'No HTTP response was received from the API.');
   }
 }

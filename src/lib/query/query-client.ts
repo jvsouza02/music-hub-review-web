@@ -1,14 +1,6 @@
-import {
-  MutationCache,
-  QueryCache,
-  QueryClient,
-} from "@tanstack/react-query";
+import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 
-import {
-  ApiError,
-  getHttpStatus,
-  getRetryAfterMs,
-} from "@/lib/api/api-error";
+import { ApiError, getHttpStatus, getRetryAfterMs } from '@/lib/api/api-error';
 
 function handleGlobalApiError(error: Error) {
   const status = getHttpStatus(error);
@@ -17,29 +9,21 @@ function handleGlobalApiError(error: Error) {
     return;
   }
 
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 
   const detail = {
     status,
-    code:
-      error instanceof ApiError
-        ? error.code
-        : `HTTP_${status}`,
+    code: error instanceof ApiError ? error.code : `HTTP_${status}`,
     message: error.message,
     retryAfterMs: getRetryAfterMs(error),
   };
 
-  window.dispatchEvent(
-    new CustomEvent("music-hub:api-error", { detail }),
-  );
+  window.dispatchEvent(new CustomEvent('music-hub:api-error', { detail }));
 }
 
-function shouldRetryQuery(
-  failureCount: number,
-  error: Error,
-): boolean {
+function shouldRetryQuery(failureCount: number, error: Error): boolean {
   const status = getHttpStatus(error);
 
   if (status === 401 || status === 403) {
@@ -49,11 +33,7 @@ function shouldRetryQuery(
   if (status === 429) {
     const retryAfterMs = getRetryAfterMs(error);
 
-    return (
-      failureCount < 1 &&
-      retryAfterMs !== undefined &&
-      retryAfterMs <= 30_000
-    );
+    return failureCount < 1 && retryAfterMs !== undefined && retryAfterMs <= 30_000;
   }
 
   if (status !== undefined && status >= 400 && status < 500) {

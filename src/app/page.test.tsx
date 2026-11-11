@@ -9,9 +9,8 @@ describe('home page', () => {
     expect(
       screen.getByRole('heading', { level: 1, name: /cada álbum tem uma história/i }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /conheça o projeto/i })).toHaveAttribute(
-      'href',
-      '#sobre',
-    );
+    expect(
+      screen.getByRole("link", { name: /conheça o projeto/i }),
+    ).toHaveAttribute("href", "#como-funciona");
   });
 });

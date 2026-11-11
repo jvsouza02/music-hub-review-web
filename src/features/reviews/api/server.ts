@@ -1,4 +1,4 @@
-import "server-only";
+import 'server-only';
 
 import {
   createReview,
@@ -7,23 +7,17 @@ import {
   listReviewsByTrack,
   listReviewsByUser,
   updateReview,
-} from "@/lib/api/generated/sdk.gen";
+} from '@/lib/api/generated/sdk.gen';
 
-import type {
-  ReviewCreateRequest,
-  ReviewUpdateRequest,
-} from "@/lib/api/generated/types.gen";
+import type { ReviewCreateRequest, ReviewUpdateRequest } from '@/lib/api/generated/types.gen';
 
-import type { PaginationParams } from "@/lib/api/pagination";
+import type { PaginationParams } from '@/lib/api/pagination';
 
-import {
-  getAuthorizationHeaders,
-  type AuthenticatedApiContext,
-} from "@/lib/api/request-context";
+import { getAuthorizationHeaders, type AuthenticatedApiContext } from '@/lib/api/request-context';
 
-import { normalizePagination } from "@/lib/api/pagination";
+import { normalizePagination } from '@/lib/api/pagination';
 
-import { unwrapApiResult, unwrapApiVoid } from "@/lib/api/unwrap";
+import { unwrapApiResult, unwrapApiVoid } from '@/lib/api/unwrap';
 
 export async function fetchReviewById(reviewId: string) {
   const result = await getReviewById({
@@ -35,10 +29,7 @@ export async function fetchReviewById(reviewId: string) {
   return unwrapApiResult(result);
 }
 
-export async function fetchReviewsByUser(
-  userId: string,
-  params: PaginationParams = {},
-) {
+export async function fetchReviewsByUser(userId: string, params: PaginationParams = {}) {
   const result = await listReviewsByUser({
     path: {
       user_id: userId,
@@ -49,10 +40,7 @@ export async function fetchReviewsByUser(
   return unwrapApiResult(result);
 }
 
-export async function fetchReviewsByTrack(
-  trackId: string,
-  params: PaginationParams = {},
-) {
+export async function fetchReviewsByTrack(trackId: string, params: PaginationParams = {}) {
   const result = await listReviewsByTrack({
     path: {
       track_id: trackId,
@@ -91,10 +79,7 @@ export async function updateUserReview(
   return unwrapApiResult(result);
 }
 
-export async function deleteUserReview(
-  reviewId: string,
-  context: AuthenticatedApiContext,
-) {
+export async function deleteUserReview(reviewId: string, context: AuthenticatedApiContext) {
   const result = await deleteReview({
     path: {
       review_id: reviewId,
