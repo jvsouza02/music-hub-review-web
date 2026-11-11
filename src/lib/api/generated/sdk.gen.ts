@@ -73,13 +73,13 @@ import type {
   ListTracksResponses,
   ListUsersData,
   ListUsersResponses,
-  LoginApiV1AuthLoginPostData,
-  LoginApiV1AuthLoginPostErrors,
-  LoginApiV1AuthLoginPostResponses,
-  LogoutApiV1AuthLogoutPostData,
-  LogoutApiV1AuthLogoutPostResponses,
-  RefreshApiV1AuthRefreshPostData,
-  RefreshApiV1AuthRefreshPostResponses,
+  LoginData,
+  LoginErrors,
+  LoginResponses,
+  LogoutData,
+  LogoutResponses,
+  RefreshSessionData,
+  RefreshSessionResponses,
   SearchTracksData,
   SearchTracksErrors,
   SearchTracksResponses,
@@ -167,7 +167,6 @@ export const getPublicUser = <ThrowOnError extends boolean = false>(
   options: Options<GetPublicUserData, ThrowOnError>,
 ): RequestResult<GetPublicUserResponses, GetPublicUserErrors, ThrowOnError> =>
   (options.client ?? client).get<GetPublicUserResponses, GetPublicUserErrors, ThrowOnError>({
-    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/v1/users/{user_id}',
     ...options,
   });
@@ -191,14 +190,10 @@ export const updateUser = <ThrowOnError extends boolean = false>(
 /**
  * Login
  */
-export const loginApiV1AuthLoginPost = <ThrowOnError extends boolean = false>(
-  options: Options<LoginApiV1AuthLoginPostData, ThrowOnError>,
-): RequestResult<LoginApiV1AuthLoginPostResponses, LoginApiV1AuthLoginPostErrors, ThrowOnError> =>
-  (options.client ?? client).post<
-    LoginApiV1AuthLoginPostResponses,
-    LoginApiV1AuthLoginPostErrors,
-    ThrowOnError
-  >({
+export const login = <ThrowOnError extends boolean = false>(
+  options: Options<LoginData, ThrowOnError>,
+): RequestResult<LoginResponses, LoginErrors, ThrowOnError> =>
+  (options.client ?? client).post<LoginResponses, LoginErrors, ThrowOnError>({
     ...urlSearchParamsBodySerializer,
     url: '/api/v1/auth/login',
     ...options,
@@ -211,10 +206,10 @@ export const loginApiV1AuthLoginPost = <ThrowOnError extends boolean = false>(
 /**
  * Refresh
  */
-export const refreshApiV1AuthRefreshPost = <ThrowOnError extends boolean = false>(
-  options?: Options<RefreshApiV1AuthRefreshPostData, ThrowOnError>,
-): RequestResult<RefreshApiV1AuthRefreshPostResponses, unknown, ThrowOnError> =>
-  (options?.client ?? client).post<RefreshApiV1AuthRefreshPostResponses, unknown, ThrowOnError>({
+export const refreshSession = <ThrowOnError extends boolean = false>(
+  options?: Options<RefreshSessionData, ThrowOnError>,
+): RequestResult<RefreshSessionResponses, unknown, ThrowOnError> =>
+  (options?.client ?? client).post<RefreshSessionResponses, unknown, ThrowOnError>({
     url: '/api/v1/auth/refresh',
     ...options,
   });
@@ -222,10 +217,10 @@ export const refreshApiV1AuthRefreshPost = <ThrowOnError extends boolean = false
 /**
  * Logout
  */
-export const logoutApiV1AuthLogoutPost = <ThrowOnError extends boolean = false>(
-  options?: Options<LogoutApiV1AuthLogoutPostData, ThrowOnError>,
-): RequestResult<LogoutApiV1AuthLogoutPostResponses, unknown, ThrowOnError> =>
-  (options?.client ?? client).post<LogoutApiV1AuthLogoutPostResponses, unknown, ThrowOnError>({
+export const logout = <ThrowOnError extends boolean = false>(
+  options?: Options<LogoutData, ThrowOnError>,
+): RequestResult<LogoutResponses, unknown, ThrowOnError> =>
+  (options?.client ?? client).post<LogoutResponses, unknown, ThrowOnError>({
     url: '/api/v1/auth/logout',
     ...options,
   });
@@ -247,6 +242,18 @@ export const createReview = <ThrowOnError extends boolean = false>(
   });
 
 /**
+ * Delete Review
+ */
+export const deleteReview = <ThrowOnError extends boolean = false>(
+  options: Options<DeleteReviewData, ThrowOnError>,
+): RequestResult<DeleteReviewResponses, DeleteReviewErrors, ThrowOnError> =>
+  (options.client ?? client).delete<DeleteReviewResponses, DeleteReviewErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/reviews/id/{review_id}',
+    ...options,
+  });
+
+/**
  * Get Review By Id
  */
 export const getReviewById = <ThrowOnError extends boolean = false>(
@@ -255,6 +262,22 @@ export const getReviewById = <ThrowOnError extends boolean = false>(
   (options.client ?? client).get<GetReviewByIdResponses, GetReviewByIdErrors, ThrowOnError>({
     url: '/api/v1/reviews/id/{review_id}',
     ...options,
+  });
+
+/**
+ * Update Review
+ */
+export const updateReview = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateReviewData, ThrowOnError>,
+): RequestResult<UpdateReviewResponses, UpdateReviewErrors, ThrowOnError> =>
+  (options.client ?? client).put<UpdateReviewResponses, UpdateReviewErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/v1/reviews/id/{review_id}',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
   });
 
 /**
@@ -278,34 +301,6 @@ export const listReviewsByTrack = <ThrowOnError extends boolean = false>(
     ListReviewsByTrackErrors,
     ThrowOnError
   >({ url: '/api/v1/reviews/track/{track_id}', ...options });
-
-/**
- * Delete Review
- */
-export const deleteReview = <ThrowOnError extends boolean = false>(
-  options: Options<DeleteReviewData, ThrowOnError>,
-): RequestResult<DeleteReviewResponses, DeleteReviewErrors, ThrowOnError> =>
-  (options.client ?? client).delete<DeleteReviewResponses, DeleteReviewErrors, ThrowOnError>({
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/v1/reviews/{review_id}',
-    ...options,
-  });
-
-/**
- * Update Review
- */
-export const updateReview = <ThrowOnError extends boolean = false>(
-  options: Options<UpdateReviewData, ThrowOnError>,
-): RequestResult<UpdateReviewResponses, UpdateReviewErrors, ThrowOnError> =>
-  (options.client ?? client).put<UpdateReviewResponses, UpdateReviewErrors, ThrowOnError>({
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/v1/reviews/{review_id}',
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  });
 
 /**
  * Get Artist By Id
@@ -336,7 +331,7 @@ export const listArtistAlbums = <ThrowOnError extends boolean = false>(
   options: Options<ListArtistAlbumsData, ThrowOnError>,
 ): RequestResult<ListArtistAlbumsResponses, ListArtistAlbumsErrors, ThrowOnError> =>
   (options.client ?? client).get<ListArtistAlbumsResponses, ListArtistAlbumsErrors, ThrowOnError>({
-    url: '/api/v1/artists{artist_id}/albums',
+    url: '/api/v1/artists/{artist_id}/albums',
     ...options,
   });
 

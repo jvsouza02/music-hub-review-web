@@ -35,7 +35,7 @@ export type AlbumResponse = {
   /**
    * Average Score
    */
-  average_score: string | null;
+  average_score: number | null;
   /**
    * Review Count
    */
@@ -69,7 +69,7 @@ export type ArtistResponse = {
   /**
    * Average Score
    */
-  average_score?: string | null;
+  average_score?: number | null;
   /**
    * Review Count
    */
@@ -77,9 +77,9 @@ export type ArtistResponse = {
 };
 
 /**
- * Body_login_api_v1_auth_login_post
+ * Body_login
  */
-export type BodyLoginApiV1AuthLoginPost = {
+export type BodyLogin = {
   /**
    * Grant Type
    */
@@ -132,45 +132,6 @@ export type LoginResponseSchema = {
    * Message
    */
   message: string;
-};
-
-/**
- * Review
- */
-export type Review = {
-  /**
-   * Id
-   */
-  id?: string;
-  /**
-   * User Id
-   */
-  user_id: string;
-  /**
-   * Track Id
-   */
-  track_id: string;
-  score: Score;
-  /**
-   * Body
-   */
-  body?: string | null;
-  /**
-   * Is Active
-   */
-  is_active?: boolean;
-  /**
-   * Is Edited
-   */
-  is_edited?: boolean;
-  /**
-   * Created At
-   */
-  created_at?: string | null;
-  /**
-   * Updated At
-   */
-  updated_at?: string | null;
 };
 
 /**
@@ -240,62 +201,6 @@ export type ReviewUpdateRequest = {
 };
 
 /**
- * Score
- */
-export type Score = {
-  /**
-   * Value
-   */
-  value: string;
-};
-
-/**
- * Track
- */
-export type Track = {
-  /**
-   * Id
-   */
-  id?: string;
-  /**
-   * Mbid
-   */
-  mbid: string;
-  /**
-   * Album Id
-   */
-  album_id: string;
-  /**
-   * Title
-   */
-  title: string;
-  /**
-   * Position
-   *
-   * Track number on the album
-   */
-  position: number;
-  /**
-   * Duration Ms
-   *
-   * Track duration (milliseconds)
-   */
-  duration_ms?: number | null;
-  /**
-   * Average Score
-   */
-  average_score?: string | null;
-  /**
-   * Review Count
-   */
-  review_count?: number;
-  /**
-   * Metadata Updated At
-   */
-  metadata_updated_at?: string;
-};
-
-/**
  * TrackResponse
  */
 export type TrackResponse = {
@@ -326,11 +231,41 @@ export type TrackResponse = {
   /**
    * Average Score
    */
-  average_score: string | null;
+  average_score: number | null;
   /**
    * Review Count
    */
   review_count: number;
+};
+
+/**
+ * TrackSearchResult
+ */
+export type TrackSearchResult = {
+  /**
+   * Mbid
+   */
+  mbid: string;
+  /**
+   * Title
+   */
+  title: string;
+  /**
+   * Artist Name
+   */
+  artist_name: string;
+  /**
+   * Album Title
+   */
+  album_title: string | null;
+  /**
+   * Average Score
+   */
+  average_score: number | null;
+  /**
+   * Review Count
+   */
+  review_count: number | null;
 };
 
 /**
@@ -373,18 +308,6 @@ export type UserPublicSchema = {
    * Username to be displayed in the application.
    */
   username: string;
-  /**
-   * User role
-   *
-   * This shows the user role in the application
-   */
-  role: UserRole;
-  /**
-   * User Status
-   *
-   * This shows if the User is active or deleted in the application.
-   */
-  is_active: boolean;
 };
 
 /**
@@ -629,60 +552,57 @@ export type UpdateUserResponses = {
 
 export type UpdateUserResponse = UpdateUserResponses[keyof UpdateUserResponses];
 
-export type LoginApiV1AuthLoginPostData = {
-  body: BodyLoginApiV1AuthLoginPost;
+export type LoginData = {
+  body: BodyLogin;
   path?: never;
   query?: never;
   url: '/api/v1/auth/login';
 };
 
-export type LoginApiV1AuthLoginPostErrors = {
+export type LoginErrors = {
   /**
    * Validation Error
    */
   422: HttpValidationError;
 };
 
-export type LoginApiV1AuthLoginPostError =
-  LoginApiV1AuthLoginPostErrors[keyof LoginApiV1AuthLoginPostErrors];
+export type LoginError = LoginErrors[keyof LoginErrors];
 
-export type LoginApiV1AuthLoginPostResponses = {
+export type LoginResponses = {
   /**
    * Successful Response
    */
   200: LoginResponseSchema;
 };
 
-export type LoginApiV1AuthLoginPostResponse =
-  LoginApiV1AuthLoginPostResponses[keyof LoginApiV1AuthLoginPostResponses];
+export type LoginResponse = LoginResponses[keyof LoginResponses];
 
-export type RefreshApiV1AuthRefreshPostData = {
+export type RefreshSessionData = {
   body?: never;
   path?: never;
   query?: never;
   url: '/api/v1/auth/refresh';
 };
 
-export type RefreshApiV1AuthRefreshPostResponses = {
+export type RefreshSessionResponses = {
   /**
    * Successful Response
    */
   200: LoginResponseSchema;
 };
 
-export type RefreshApiV1AuthRefreshPostResponse =
-  RefreshApiV1AuthRefreshPostResponses[keyof RefreshApiV1AuthRefreshPostResponses];
+export type RefreshSessionResponse = RefreshSessionResponses[keyof RefreshSessionResponses];
 
-export type LogoutApiV1AuthLogoutPostData = {
+export type LogoutData = {
   body?: never;
   path?: never;
   query?: never;
   url: '/api/v1/auth/logout';
 };
 
-export type LogoutApiV1AuthLogoutPostResponses = {
+export type LogoutResponses = {
   /**
-   * Response Logout Api V1 Auth Logout Post
+   * Response Logout
    *
    * Successful Response
    */
@@ -691,8 +611,7 @@ export type LogoutApiV1AuthLogoutPostResponses = {
   };
 };
 
-export type LogoutApiV1AuthLogoutPostResponse =
-  LogoutApiV1AuthLogoutPostResponses[keyof LogoutApiV1AuthLogoutPostResponses];
+export type LogoutResponse = LogoutResponses[keyof LogoutResponses];
 
 export type CreateReviewData = {
   body: ReviewCreateRequest;
@@ -718,6 +637,36 @@ export type CreateReviewResponses = {
 };
 
 export type CreateReviewResponse = CreateReviewResponses[keyof CreateReviewResponses];
+
+export type DeleteReviewData = {
+  body?: never;
+  path: {
+    /**
+     * Review Id
+     */
+    review_id: string;
+  };
+  query?: never;
+  url: '/api/v1/reviews/id/{review_id}';
+};
+
+export type DeleteReviewErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type DeleteReviewError = DeleteReviewErrors[keyof DeleteReviewErrors];
+
+export type DeleteReviewResponses = {
+  /**
+   * Successful Response
+   */
+  204: void;
+};
+
+export type DeleteReviewResponse = DeleteReviewResponses[keyof DeleteReviewResponses];
 
 export type GetReviewByIdData = {
   body?: never;
@@ -749,6 +698,36 @@ export type GetReviewByIdResponses = {
 
 export type GetReviewByIdResponse = GetReviewByIdResponses[keyof GetReviewByIdResponses];
 
+export type UpdateReviewData = {
+  body: ReviewUpdateRequest;
+  path: {
+    /**
+     * Review Id
+     */
+    review_id: string;
+  };
+  query?: never;
+  url: '/api/v1/reviews/id/{review_id}';
+};
+
+export type UpdateReviewErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UpdateReviewError = UpdateReviewErrors[keyof UpdateReviewErrors];
+
+export type UpdateReviewResponses = {
+  /**
+   * Successful Response
+   */
+  200: ReviewResponse;
+};
+
+export type UpdateReviewResponse = UpdateReviewResponses[keyof UpdateReviewResponses];
+
 export type ListReviewsByUserData = {
   body?: never;
   path: {
@@ -760,10 +739,14 @@ export type ListReviewsByUserData = {
   query?: {
     /**
      * Limit
+     *
+     * Quantidade de itens
      */
     limit?: number;
     /**
      * Offset
+     *
+     * Pular X itens
      */
     offset?: number;
   };
@@ -802,10 +785,14 @@ export type ListReviewsByTrackData = {
   query?: {
     /**
      * Limit
+     *
+     * Quantidade de itens
      */
     limit?: number;
     /**
      * Offset
+     *
+     * Pular X itens
      */
     offset?: number;
   };
@@ -832,66 +819,6 @@ export type ListReviewsByTrackResponses = {
 
 export type ListReviewsByTrackResponse =
   ListReviewsByTrackResponses[keyof ListReviewsByTrackResponses];
-
-export type DeleteReviewData = {
-  body?: never;
-  path: {
-    /**
-     * Review Id
-     */
-    review_id: string;
-  };
-  query?: never;
-  url: '/api/v1/reviews/{review_id}';
-};
-
-export type DeleteReviewErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type DeleteReviewError = DeleteReviewErrors[keyof DeleteReviewErrors];
-
-export type DeleteReviewResponses = {
-  /**
-   * Successful Response
-   */
-  200: Review;
-};
-
-export type DeleteReviewResponse = DeleteReviewResponses[keyof DeleteReviewResponses];
-
-export type UpdateReviewData = {
-  body: ReviewUpdateRequest;
-  path: {
-    /**
-     * Review Id
-     */
-    review_id: string;
-  };
-  query?: never;
-  url: '/api/v1/reviews/{review_id}';
-};
-
-export type UpdateReviewErrors = {
-  /**
-   * Validation Error
-   */
-  422: HttpValidationError;
-};
-
-export type UpdateReviewError = UpdateReviewErrors[keyof UpdateReviewErrors];
-
-export type UpdateReviewResponses = {
-  /**
-   * Successful Response
-   */
-  200: ReviewResponse;
-};
-
-export type UpdateReviewResponse = UpdateReviewResponses[keyof UpdateReviewResponses];
 
 export type GetArtistByIdData = {
   body?: never;
@@ -962,7 +889,7 @@ export type ListArtistAlbumsData = {
     artist_id: string;
   };
   query?: never;
-  url: '/api/v1/artists{artist_id}/albums';
+  url: '/api/v1/artists/{artist_id}/albums';
 };
 
 export type ListArtistAlbumsErrors = {
@@ -991,10 +918,14 @@ export type ListArtistsData = {
   query?: {
     /**
      * Limit
+     *
+     * Quantidade de itens
      */
     limit?: number;
     /**
      * Offset
+     *
+     * Pular X itens
      */
     offset?: number;
   };
@@ -1087,10 +1018,14 @@ export type ListAlbumsData = {
   query?: {
     /**
      * Limit
+     *
+     * Quantidade de itens
      */
     limit?: number;
     /**
      * Offset
+     *
+     * Pular X itens
      */
     offset?: number;
   };
@@ -1176,9 +1111,7 @@ export type SearchTracksResponses = {
    *
    * Successful Response
    */
-  200: Array<{
-    [key: string]: unknown;
-  }>;
+  200: Array<TrackSearchResult>;
 };
 
 export type SearchTracksResponse = SearchTracksResponses[keyof SearchTracksResponses];
@@ -1249,10 +1182,14 @@ export type ListTracksData = {
   query?: {
     /**
      * Limit
+     *
+     * Quantidade de itens
      */
     limit?: number;
     /**
      * Offset
+     *
+     * Pular X itens
      */
     offset?: number;
   };
@@ -1274,7 +1211,7 @@ export type ListTracksResponses = {
    *
    * Successful Response
    */
-  200: Array<Track>;
+  200: Array<TrackResponse>;
 };
 
 export type ListTracksResponse = ListTracksResponses[keyof ListTracksResponses];

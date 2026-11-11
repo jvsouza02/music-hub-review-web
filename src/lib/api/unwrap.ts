@@ -6,10 +6,14 @@ type SdkResult<T> = {
   response?: Response;
 };
 
-export function unwrapApiResult<T>(result: SdkResult<T>): T {
+function ensureSuccessfulResponse<T>(result: SdkResult<T>): void {
   if (result.error != null || result.response?.ok === false) {
     throw createApiError(result.response, result.error);
   }
+}
+
+export function unwrapApiResult<T>(result: SdkResult<T>): T {
+  ensureSuccessfulResponse(result);
 
   if (result.data === undefined) {
     throw new ApiError(
@@ -20,4 +24,15 @@ export function unwrapApiResult<T>(result: SdkResult<T>): T {
   }
 
   return result.data;
+}
+
+export function unwrapApiVoid(result: SdkResult<unknown>): void {
+  ensureSuccessfulResponse(result);
+
+  if (!result.response) {
+    throw createApiError(
+      undefined,
+      "No HTTP response was received from the API.",
+    );
+  }
 }

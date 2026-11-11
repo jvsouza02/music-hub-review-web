@@ -1,7 +1,4 @@
-export type PaginationParams = {
-  limit?: number;
-  offset?: number;
-};
+import type { PaginationParams } from "@/lib/api/pagination";
 
 function resourceKeys(resource: string) {
   const all = ["music-hub", resource] as const;

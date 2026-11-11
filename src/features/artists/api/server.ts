@@ -7,16 +7,16 @@ import {
   listArtists,
 } from "@/lib/api/generated/sdk.gen";
 
-import { unwrapApiResult } from "@/lib/api/unwrap";
+import type { PaginationParams } from "@/lib/api/pagination";
 
-type PaginationParams = {
-  limit?: number;
-  offset?: number;
-};
+import { normalizePagination } from "@/lib/api/pagination";
+import { unwrapApiResult } from "@/lib/api/unwrap";
 
 export async function fetchArtistById(artistId: string) {
   const result = await getArtistById({
-    path: { artist_id: artistId },
+    path: {
+      artist_id: artistId,
+    },
   });
 
   return unwrapApiResult(result);
@@ -24,7 +24,9 @@ export async function fetchArtistById(artistId: string) {
 
 export async function fetchArtistByMbid(artistMbid: string) {
   const result = await getArtistByMbid({
-    path: { artist_mbid: artistMbid },
+    path: {
+      artist_mbid: artistMbid,
+    },
   });
 
   return unwrapApiResult(result);
@@ -32,10 +34,7 @@ export async function fetchArtistByMbid(artistMbid: string) {
 
 export async function fetchArtists(params: PaginationParams = {}) {
   const result = await listArtists({
-    query: {
-      limit: params.limit ?? 20,
-      offset: params.offset ?? 0,
-    },
+    query: normalizePagination(params),
   });
 
   return unwrapApiResult(result);
@@ -43,7 +42,9 @@ export async function fetchArtists(params: PaginationParams = {}) {
 
 export async function fetchArtistAlbums(artistId: string) {
   const result = await listArtistAlbums({
-    path: { artist_id: artistId },
+    path: {
+      artist_id: artistId,
+    },
   });
 
   return unwrapApiResult(result);
