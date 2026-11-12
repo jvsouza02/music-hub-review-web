@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, Search, X } from 'lucide-react';
 
 export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +29,9 @@ export function MobileNavigation() {
     };
   }, [isOpen]);
 
+  const linkClassName =
+    'flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors hover:bg-muted';
+
   return (
     <div className="relative md:hidden">
       <button
@@ -50,56 +53,29 @@ export function MobileNavigation() {
       <nav
         id="mobile-navigation"
         aria-label="Navegação mobile"
-        className={`absolute top-full right-0 left-0 z-50 mt-3 rounded-2xl border border-border bg-background p-4 shadow-popover ${
+        className={`absolute top-full right-0 z-50 mt-3 w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-border bg-background p-3 shadow-popover ${
           isOpen ? 'block' : 'hidden'
         }`}
       >
-        <div className="space-y-2">
-          <div className="relative mb-4">
-            <label htmlFor="mobile-search" className="sr-only">
-              Buscar álbuns, artistas e faixas
-            </label>
-
-            <Search
-              aria-hidden="true"
-              className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-            />
-
-            <input
-              id="mobile-search"
-              type="search"
-              placeholder="Busca em breve"
-              disabled
-              aria-describedby="mobile-search-status"
-              className="h-11 w-full rounded-xl border border-border bg-muted/50 pr-3 pl-10 text-sm text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed"
-            />
-
-            <span id="mobile-search-status" className="sr-only">
-              A busca ainda não está disponível.
-            </span>
-          </div>
-
-          <Link
-            href="/"
-            onClick={closeMenu}
-            className="block rounded-xl px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
-          >
+        <div className="space-y-1">
+          <Link href="/" onClick={closeMenu} className={linkClassName}>
             Início
           </Link>
 
-          <Link
-            href="/#como-funciona"
-            onClick={closeMenu}
-            className="block rounded-xl px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
-          >
+          <Link href="/explore" onClick={closeMenu} className={linkClassName}>
+            Explorar
+          </Link>
+
+          <Link href="/explore#track-search" onClick={closeMenu} className={linkClassName}>
+            <Search aria-hidden="true" className="size-4" />
+            Buscar faixas
+          </Link>
+
+          <Link href="/#como-funciona" onClick={closeMenu} className={linkClassName}>
             Como funciona
           </Link>
 
-          <Link
-            href="/#sobre"
-            onClick={closeMenu}
-            className="block rounded-xl px-4 py-3 text-sm font-medium transition-colors hover:bg-muted"
-          >
+          <Link href="/#sobre" onClick={closeMenu} className={linkClassName}>
             Sobre
           </Link>
         </div>
