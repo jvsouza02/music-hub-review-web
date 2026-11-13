@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import { Disc3 } from "lucide-react";
+import { useState } from 'react';
+import Image from 'next/image';
+import { Disc3 } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type AlbumCoverProps = {
   src?: string | null;
@@ -18,9 +18,9 @@ function isAllowedCoverArtUrl(value: string): boolean {
     const url = new URL(value);
 
     return (
-      url.protocol === "https:" &&
-      url.hostname === "coverartarchive.org" &&
-      url.pathname.startsWith("/release/")
+      url.protocol === 'https:' &&
+      url.hostname === 'coverartarchive.org' &&
+      url.pathname.startsWith('/release/')
     );
   } catch {
     return false;
@@ -31,7 +31,7 @@ export function AlbumCover({
   src,
   alt,
   className,
-  sizes = "(max-width: 640px) 44vw, (max-width: 1024px) 28vw, 220px",
+  sizes = '(max-width: 640px) 44vw, (max-width: 1024px) 28vw, 220px',
 }: AlbumCoverProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
@@ -43,18 +43,14 @@ export function AlbumCover({
     <div
       data-slot="album-cover"
       className={cn(
-        "relative isolate aspect-square w-full min-w-0 overflow-hidden rounded-xl bg-muted",
+        'relative isolate aspect-square w-full min-w-0 overflow-hidden rounded-xl bg-muted',
         className,
       )}
     >
       {shouldShowFallback ? (
         <div
           role="img"
-          aria-label={
-            alt
-              ? `${alt} — capa indisponível`
-              : "Capa de álbum indisponível"
-          }
+          aria-label={alt ? `${alt} — capa indisponível` : 'Capa de álbum indisponível'}
           className="absolute inset-0 flex h-full w-full items-center justify-center bg-linear-to-br from-muted to-accent text-muted-foreground"
         >
           <Disc3 aria-hidden="true" className="size-12 opacity-60" />
