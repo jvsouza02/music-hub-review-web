@@ -7,9 +7,10 @@ import { authMessageSchema } from '@/features/auth/schemas/auth.schema';
 
 type LogoutButtonProps = {
   csrfToken: string;
+  onLoggedOut?: () => void;
 };
 
-export function LogoutButton({ csrfToken }: LogoutButtonProps) {
+export function LogoutButton({ csrfToken, onLoggedOut }: LogoutButtonProps) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +40,8 @@ export function LogoutButton({ csrfToken }: LogoutButtonProps) {
 
         return;
       }
+
+      onLoggedOut?.();
 
       router.replace('/login');
       router.refresh();

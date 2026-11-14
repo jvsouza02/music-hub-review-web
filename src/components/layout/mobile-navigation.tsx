@@ -4,7 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Menu, Search, X } from 'lucide-react';
 
-export function MobileNavigation() {
+import { LogoutButton } from '@/features/auth/components/logout-button';
+import type { HeaderAuthState } from '@/features/auth/types';
+
+type MobileNavigationProps = {
+  auth: HeaderAuthState | null;
+};
+
+export function MobileNavigation({ auth }: MobileNavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -78,6 +85,30 @@ export function MobileNavigation() {
           <Link href="/#sobre" onClick={closeMenu} className={linkClassName}>
             Sobre
           </Link>
+
+          <div className="my-2 border-t border-border" />
+
+          {auth ? (
+            <>
+              <Link href="/account" onClick={closeMenu} className={linkClassName}>
+                Minha conta — {auth.username}
+              </Link>
+
+              <div className="px-4 py-2">
+                <LogoutButton csrfToken={auth.csrfToken} onLoggedOut={closeMenu} />
+              </div>
+            </>
+          ) : (
+            <>
+              <Link href="/login" onClick={closeMenu} className={linkClassName}>
+                Entrar
+              </Link>
+
+              <Link href="/register" onClick={closeMenu} className={linkClassName}>
+                Cadastrar-se
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </div>
