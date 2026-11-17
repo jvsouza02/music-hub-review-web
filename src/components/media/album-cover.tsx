@@ -17,10 +17,18 @@ function isAllowedCoverArtUrl(value: string): boolean {
   try {
     const url = new URL(value);
 
+    const allowedPath =
+      /^\/(?:release|release-group)\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/front(?:-\d+)?$/i;
+
     return (
       url.protocol === 'https:' &&
       url.hostname === 'coverartarchive.org' &&
-      url.pathname.startsWith('/release/')
+      url.port === '' &&
+      url.username === '' &&
+      url.password === '' &&
+      url.search === '' &&
+      url.hash === '' &&
+      allowedPath.test(url.pathname)
     );
   } catch {
     return false;

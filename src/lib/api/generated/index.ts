@@ -160,6 +160,7 @@ export type {
   SearchTracksErrors,
   SearchTracksResponse,
   SearchTracksResponses,
+  TrackDetailsResponse,
   TrackResponse,
   TrackSearchResult,
   UpdateReviewData,

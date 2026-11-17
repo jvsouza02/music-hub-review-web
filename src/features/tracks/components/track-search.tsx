@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Search, X, Music2 } from 'lucide-react';
@@ -37,28 +39,34 @@ function TrackSearchResultCard({ track }: { track: TrackSearchItem }) {
       : `${track.review_count} ${track.review_count === 1 ? 'avaliação' : 'avaliações'}`;
 
   return (
-    <article className="flex min-w-0 items-center gap-4 rounded-xl border border-border bg-card p-4 shadow-card">
-      <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-        <Music2 aria-hidden="true" className="size-6" />
-      </div>
+    <Link
+      href={`/tracks/${track.mbid}`}
+      aria-label={`Ver detalhes de ${track.title}, por ${track.artist_name}`}
+      className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    >
+      <article className="flex min-w-0 items-center gap-4 rounded-xl border border-border bg-card p-4 shadow-card transition-colors group-hover:border-primary/50">
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <Music2 aria-hidden="true" className="size-6" />
+        </div>
 
-      <div className="min-w-0 flex-1">
-        <h3 className="truncate text-sm font-semibold">{track.title}</h3>
+        <div className="min-w-0 flex-1">
+          <h3 className="truncate text-sm font-semibold">{track.title}</h3>
 
-        <p className="mt-1 truncate text-xs text-muted-foreground">
-          {track.artist_name}
-          {track.album_title ? ` · ${track.album_title}` : ''}
-        </p>
-      </div>
+          <p className="mt-1 truncate text-xs text-muted-foreground">
+            {track.artist_name}
+            {track.album_title ? ` · ${track.album_title}` : ''}
+          </p>
+        </div>
 
-      <div className="shrink-0 text-right">
-        <p className="text-sm font-semibold">
-          {formatRating(track.average_score, track.review_count)}
-        </p>
+        <div className="shrink-0 text-right">
+          <p className="text-sm font-semibold">
+            {formatRating(track.average_score, track.review_count)}
+          </p>
 
-        <p className="mt-1 text-xs text-muted-foreground">{reviewLabel}</p>
-      </div>
-    </article>
+          <p className="mt-1 text-xs text-muted-foreground">{reviewLabel}</p>
+        </div>
+      </article>
+    </Link>
   );
 }
 

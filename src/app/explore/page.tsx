@@ -15,6 +15,7 @@ import { AlbumCard } from '@/features/explore/components/album-card';
 import { ArtistCard } from '@/features/explore/components/artist-card';
 import { TrackCard } from '@/features/explore/components/track-card';
 import { CatalogPagination } from '@/features/explore/components/catalog-pagination';
+import { resolveArtistImages } from '@/lib/media/artist-images.server';
 
 import { TrackSearch } from '@/features/tracks/components/track-search';
 
@@ -148,6 +149,10 @@ export default async function ExplorePage({
     loadCatalogPage<TrackResponse>(fetchTracks, tracksPage),
   ]);
 
+  const artistImages = await resolveArtistImages(
+    artists.failed ? [] : artists.items.map((artist) => artist.mbid),
+  );
+
   return (
     <div className="mx-auto w-full max-w-7xl space-y-14 px-page py-10 sm:py-14">
       {/* Page heading */}
@@ -201,7 +206,11 @@ export default async function ExplorePage({
           <>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {artists.items.map((artist) => (
-                <ArtistCard key={artist.id} artist={artist} />
+                <ArtistCard
+                  key={artist.id}
+                  artist={artist}
+                  image={artistImages[artist.mbid.toLowerCase()] ?? null}
+                />
               ))}
             </div>
 

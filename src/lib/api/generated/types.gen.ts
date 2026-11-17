@@ -201,6 +201,52 @@ export type ReviewUpdateRequest = {
 };
 
 /**
+ * TrackDetailsResponse
+ */
+export type TrackDetailsResponse = {
+  /**
+   * Id
+   */
+  id?: string | null;
+  /**
+   * Mbid
+   */
+  mbid: string;
+  /**
+   * Album Id
+   */
+  album_id?: string | null;
+  /**
+   * Title
+   */
+  title: string;
+  /**
+   * Artist Name
+   */
+  artist_name: string;
+  /**
+   * Album Title
+   */
+  album_title?: string | null;
+  /**
+   * Position
+   */
+  position?: number | null;
+  /**
+   * Duration Ms
+   */
+  duration_ms?: number | null;
+  /**
+   * Average Score
+   */
+  average_score?: number | null;
+  /**
+   * Review Count
+   */
+  review_count?: number;
+};
+
+/**
  * TrackResponse
  */
 export type TrackResponse = {
@@ -1171,7 +1217,7 @@ export type GetTrackByMbidResponses = {
   /**
    * Successful Response
    */
-  200: TrackResponse;
+  200: TrackDetailsResponse;
 };
 
 export type GetTrackByMbidResponse = GetTrackByMbidResponses[keyof GetTrackByMbidResponses];
