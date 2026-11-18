@@ -9,6 +9,7 @@ export const trackSearchResultSchema: z.ZodType<ApiTrackSearchResult> = z.object
   title: z.string(),
   artist_name: z.string(),
   album_title: z.string().nullable(),
+  album_mbid: z.string().uuid().nullable(),
   average_score: z.number().nullable(),
   review_count: z.number().int().nullable(),
 });

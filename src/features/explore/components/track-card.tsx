@@ -1,8 +1,11 @@
-import { Clock3, Music2 } from 'lucide-react';
+import { Clock3 } from 'lucide-react';
 
 import type { TrackResponse } from '@/lib/api/generated/types.gen';
 
 import { RatingSummary } from '@/features/explore/components/rating-summary';
+
+import { AlbumCover } from '@/components/media/album-cover';
+import { getReleaseCoverUrl } from '@/lib/media/cover-art';
 
 type TrackCardProps = {
   track: TrackResponse;
@@ -23,8 +26,13 @@ function formatDuration(durationMs: number | null): string {
 export function TrackCard({ track }: TrackCardProps) {
   return (
     <article className="flex min-w-0 items-center gap-4 rounded-xl border border-border bg-card p-4 shadow-card transition-colors hover:border-primary/40">
-      <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-cyan/10 text-brand-cyan">
-        <Music2 aria-hidden="true" className="size-5" />
+      <div className="size-11 shrink-0">
+        <AlbumCover
+          src={getReleaseCoverUrl(track.album_mbid)}
+          alt={`Capa do álbum da faixa ${track.title}`}
+          className="rounded-xl"
+          sizes="44px"
+        />
       </div>
 
       <div className="min-w-0 flex-1">

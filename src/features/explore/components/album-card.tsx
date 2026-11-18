@@ -5,14 +5,14 @@ import type { AlbumResponse } from '@/lib/api/generated/types.gen';
 import { AlbumCover } from '@/components/media/album-cover';
 import { RatingSummary } from '@/features/explore/components/rating-summary';
 
+import { getReleaseCoverUrl } from '@/lib/media/cover-art';
+
 type AlbumCardProps = {
   album: AlbumResponse;
 };
 
 export function AlbumCard({ album }: AlbumCardProps) {
-  const coverUrl = album.mbid
-    ? `https://coverartarchive.org/release/${encodeURIComponent(album.mbid)}/front-250`
-    : null;
+  const coverUrl = getReleaseCoverUrl(album.mbid);
 
   return (
     <article className="group min-w-0 overflow-hidden rounded-2xl border border-border bg-card p-3 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-hover">

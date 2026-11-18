@@ -229,6 +229,10 @@ export type TrackDetailsResponse = {
    */
   album_title?: string | null;
   /**
+   * Album Mbid
+   */
+  album_mbid: string | null;
+  /**
    * Position
    */
   position?: number | null;
@@ -262,6 +266,10 @@ export type TrackResponse = {
    * Album Id
    */
   album_id: string;
+  /**
+   * Album Mbid
+   */
+  album_mbid: string;
   /**
    * Title
    */
@@ -304,6 +312,10 @@ export type TrackSearchResult = {
    * Album Title
    */
   album_title: string | null;
+  /**
+   * Album Mbid
+   */
+  album_mbid: string | null;
   /**
    * Average Score
    */

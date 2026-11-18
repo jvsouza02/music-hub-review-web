@@ -13,6 +13,9 @@ import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/feedback/empty-state';
 import { ErrorState } from '@/components/feedback/error-state';
 
+import { AlbumCover } from '@/components/media/album-cover';
+import { getReleaseCoverUrl } from '@/lib/media/cover-art';
+
 import { useDebouncedValue } from '@/features/tracks/hooks/use-debounced-value';
 
 import {
@@ -45,8 +48,13 @@ function TrackSearchResultCard({ track }: { track: TrackSearchItem }) {
       className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     >
       <article className="flex min-w-0 items-center gap-4 rounded-xl border border-border bg-card p-4 shadow-card transition-colors group-hover:border-primary/50">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-          <Music2 aria-hidden="true" className="size-6" />
+        <div className="size-12 shrink-0">
+          <AlbumCover
+            src={getReleaseCoverUrl(track.album_mbid)}
+            alt={`Capa do álbum de ${track.title}`}
+            className="rounded-xl"
+            sizes="48px"
+          />
         </div>
 
         <div className="min-w-0 flex-1">
