@@ -80,6 +80,12 @@ import type {
   LogoutResponses,
   RefreshSessionData,
   RefreshSessionResponses,
+  SearchAlbumsData,
+  SearchAlbumsErrors,
+  SearchAlbumsResponses,
+  SearchArtistsData,
+  SearchArtistsErrors,
+  SearchArtistsResponses,
   SearchTracksData,
   SearchTracksErrors,
   SearchTracksResponses,
@@ -303,6 +309,17 @@ export const listReviewsByTrack = <ThrowOnError extends boolean = false>(
   >({ url: '/api/v1/reviews/track/{track_id}', ...options });
 
 /**
+ * Search Artists
+ */
+export const searchArtists = <ThrowOnError extends boolean = false>(
+  options: Options<SearchArtistsData, ThrowOnError>,
+): RequestResult<SearchArtistsResponses, SearchArtistsErrors, ThrowOnError> =>
+  (options.client ?? client).get<SearchArtistsResponses, SearchArtistsErrors, ThrowOnError>({
+    url: '/api/v1/artists/search',
+    ...options,
+  });
+
+/**
  * Get Artist By Id
  */
 export const getArtistById = <ThrowOnError extends boolean = false>(
@@ -343,6 +360,17 @@ export const listArtists = <ThrowOnError extends boolean = false>(
 ): RequestResult<ListArtistsResponses, ListArtistsErrors, ThrowOnError> =>
   (options?.client ?? client).get<ListArtistsResponses, ListArtistsErrors, ThrowOnError>({
     url: '/api/v1/artists/',
+    ...options,
+  });
+
+/**
+ * Search Albums
+ */
+export const searchAlbums = <ThrowOnError extends boolean = false>(
+  options: Options<SearchAlbumsData, ThrowOnError>,
+): RequestResult<SearchAlbumsResponses, SearchAlbumsErrors, ThrowOnError> =>
+  (options.client ?? client).get<SearchAlbumsResponses, SearchAlbumsErrors, ThrowOnError>({
+    url: '/api/v1/albums/search',
     ...options,
   });
 

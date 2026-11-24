@@ -17,11 +17,11 @@ import { TrackCard } from '@/features/explore/components/track-card';
 import { CatalogPagination } from '@/features/explore/components/catalog-pagination';
 import { resolveArtistImages } from '@/lib/media/artist-images.server';
 
-import { TrackSearch } from '@/features/tracks/components/track-search';
+import { CatalogSearch } from '@/features/catalog-search/components/catalog-search';
 
 export const metadata: Metadata = {
   title: 'Explorar',
-  description: 'Explore artistas, descubra álbuns e pesquise faixas no Music Hub Review.',
+  description: 'Explore artistas, descubra álbuns e pesquise músicas no Music Hub Review.',
 };
 
 const PAGE_SIZE = 12;
@@ -170,8 +170,8 @@ export default async function ExplorePage({
         </p>
       </header>
 
-      {/* Track search */}
-      <TrackSearch />
+      {/* Catalog search */}
+      <CatalogSearch />
 
       {/* Artists */}
       <section id="artists" aria-labelledby="artists-title" className="scroll-mt-28 space-y-6">

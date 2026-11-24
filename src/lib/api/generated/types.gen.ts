@@ -5,6 +5,52 @@ export type ClientOptions = {
 };
 
 /**
+ * AlbumDetailsResponse
+ */
+export type AlbumDetailsResponse = {
+  /**
+   * Id
+   */
+  id: string;
+  /**
+   * Mbid
+   */
+  mbid: string;
+  /**
+   * Artist Id
+   */
+  artist_id: string;
+  /**
+   * Title
+   */
+  title: string;
+  /**
+   * Release Date
+   */
+  release_date?: string | null;
+  /**
+   * Total Tracks
+   */
+  total_tracks: number;
+  /**
+   * Average Score
+   */
+  average_score?: number | null;
+  /**
+   * Review Count
+   */
+  review_count: number;
+  /**
+   * Artist Mbid
+   */
+  artist_mbid: string;
+  /**
+   * Artist Name
+   */
+  artist_name: string;
+};
+
+/**
  * AlbumResponse
  */
 export type AlbumResponse = {
@@ -27,7 +73,7 @@ export type AlbumResponse = {
   /**
    * Release Date
    */
-  release_date: string;
+  release_date?: string | null;
   /**
    * Total Tracks
    */
@@ -35,11 +81,49 @@ export type AlbumResponse = {
   /**
    * Average Score
    */
-  average_score: number | null;
+  average_score?: number | null;
   /**
    * Review Count
    */
   review_count: number;
+};
+
+/**
+ * AlbumSearchResult
+ */
+export type AlbumSearchResult = {
+  /**
+   * Mbid
+   */
+  mbid: string;
+  /**
+   * Title
+   */
+  title: string;
+  /**
+   * Artist Name
+   */
+  artist_name?: string | null;
+  /**
+   * Artist Mbid
+   */
+  artist_mbid?: string | null;
+  /**
+   * Release Date
+   */
+  release_date?: string | null;
+  /**
+   * Total Tracks
+   */
+  total_tracks?: number | null;
+  /**
+   * Average Score
+   */
+  average_score?: number | null;
+  /**
+   * Review Count
+   */
+  review_count?: number;
 };
 
 /**
@@ -74,6 +158,36 @@ export type ArtistResponse = {
    * Review Count
    */
   review_count: number;
+};
+
+/**
+ * ArtistSearchResult
+ */
+export type ArtistSearchResult = {
+  /**
+   * Mbid
+   */
+  mbid: string;
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Disambiguation
+   */
+  disambiguation?: string | null;
+  /**
+   * Country
+   */
+  country?: string | null;
+  /**
+   * Average Score
+   */
+  average_score?: number | null;
+  /**
+   * Review Count
+   */
+  review_count?: number;
 };
 
 /**
@@ -878,6 +992,38 @@ export type ListReviewsByTrackResponses = {
 export type ListReviewsByTrackResponse =
   ListReviewsByTrackResponses[keyof ListReviewsByTrackResponses];
 
+export type SearchArtistsData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Query
+     */
+    query: string;
+  };
+  url: '/api/v1/artists/search';
+};
+
+export type SearchArtistsErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type SearchArtistsError = SearchArtistsErrors[keyof SearchArtistsErrors];
+
+export type SearchArtistsResponses = {
+  /**
+   * Response Searchartists
+   *
+   * Successful Response
+   */
+  200: Array<ArtistSearchResult>;
+};
+
+export type SearchArtistsResponse = SearchArtistsResponses[keyof SearchArtistsResponses];
+
 export type GetArtistByIdData = {
   body?: never;
   path: {
@@ -1010,6 +1156,38 @@ export type ListArtistsResponses = {
 
 export type ListArtistsResponse = ListArtistsResponses[keyof ListArtistsResponses];
 
+export type SearchAlbumsData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * Query
+     */
+    query: string;
+  };
+  url: '/api/v1/albums/search';
+};
+
+export type SearchAlbumsErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type SearchAlbumsError = SearchAlbumsErrors[keyof SearchAlbumsErrors];
+
+export type SearchAlbumsResponses = {
+  /**
+   * Response Searchalbums
+   *
+   * Successful Response
+   */
+  200: Array<AlbumSearchResult>;
+};
+
+export type SearchAlbumsResponse = SearchAlbumsResponses[keyof SearchAlbumsResponses];
+
 export type GetAlbumByIdData = {
   body?: never;
   path: {
@@ -1065,7 +1243,7 @@ export type GetAlbumByMbidResponses = {
   /**
    * Successful Response
    */
-  200: AlbumResponse;
+  200: AlbumDetailsResponse;
 };
 
 export type GetAlbumByMbidResponse = GetAlbumByMbidResponses[keyof GetAlbumByMbidResponses];

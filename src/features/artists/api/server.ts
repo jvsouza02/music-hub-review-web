@@ -5,6 +5,7 @@ import {
   getArtistByMbid,
   listArtistAlbums,
   listArtists,
+  searchArtists,
 } from '@/lib/api/generated/sdk.gen';
 
 import type { PaginationParams } from '@/lib/api/pagination';
@@ -45,6 +46,17 @@ export async function fetchArtistAlbums(artistId: string) {
     path: {
       artist_id: artistId,
     },
+  });
+
+  return unwrapApiResult(result);
+}
+
+export async function searchArtistsByTerm(query: string, signal?: AbortSignal) {
+  const result = await searchArtists({
+    query: {
+      query,
+    },
+    signal,
   });
 
   return unwrapApiResult(result);

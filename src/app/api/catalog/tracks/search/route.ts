@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const results = await searchTracksByTerm(parsedQuery.data);
+    const results = await searchTracksByTerm(parsedQuery.data, request.signal);
     const parsedResults = trackSearchResultsSchema.safeParse(results);
 
     if (!parsedResults.success) {
@@ -48,6 +48,12 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
+    if (
+      request.signal.aborted ||
+      (error instanceof Error && error.name === 'AbortError')
+    ) {
+      throw error;
+    }
     const status = getHttpStatus(error instanceof Error ? error : new Error('Unknown API error'));
 
     if (status === 429) {

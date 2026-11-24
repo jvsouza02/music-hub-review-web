@@ -37,12 +37,14 @@ export const queryKeys = {
     ...artists,
     byMbid: (mbid: string) => [...artists.all, 'mbid', mbid] as const,
     albums: (artistId: string) => [...artists.detail(artistId), 'albums'] as const,
+    search: (term: string) => [...artists.all, 'search', term.trim()] as const,
   },
 
   albums: {
     ...albums,
     byMbid: (mbid: string) => [...albums.all, 'mbid', mbid] as const,
     tracks: (albumId: string) => [...albums.detail(albumId), 'tracks'] as const,
+    search: (term: string) => [...albums.all, 'search', term.trim()] as const,
   },
 
   tracks: {

@@ -5,6 +5,7 @@ import {
   getAlbumByMbid,
   listAlbums,
   listAlbumTracks,
+  searchAlbums,
 } from '@/lib/api/generated/sdk.gen';
 
 import type { PaginationParams } from '@/lib/api/pagination';
@@ -45,6 +46,17 @@ export async function fetchAlbumTracks(albumId: string) {
     path: {
       album_id: albumId,
     },
+  });
+
+  return unwrapApiResult(result);
+}
+
+export async function searchAlbumsByTerm(query: string, signal?: AbortSignal) {
+  const result = await searchAlbums({
+    query: {
+      query,
+    },
+    signal,
   });
 
   return unwrapApiResult(result);

@@ -40,11 +40,12 @@ export async function fetchTracks(params: PaginationParams = {}) {
   return unwrapApiResult(result);
 }
 
-export async function searchTracksByTerm(query: string) {
+export async function searchTracksByTerm(query: string, signal?: AbortSignal) {
   const result = await searchTracks({
     query: {
       query,
     },
+    signal,
   });
 
   return unwrapApiResult(result);
